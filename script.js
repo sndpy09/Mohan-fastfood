@@ -1,4 +1,309 @@
-// ================================
+"script.js"
+
+// ==========================================
+// MOHAN FASTFOOD - WHATSAPP ORDER SYSTEM
+// WhatsApp: +91 97215 80699
+// Minimum Home Delivery: ₹100
+// ==========================================
+
+const WHATSAPP_NUMBER = "919721580699";
+const MINIMUM_ORDER = 100;
+
+let cart = [];
+
+// -----------------------------
+// ADD TO CART
+// -----------------------------
+function addToCart(name, price) {
+
+    const existingItem = cart.find(item => item.name === name);
+
+    if (existingItem) {
+        existingItem.quantity++;
+    } else {
+        cart.push({
+            name: name,
+            price: Number(price),
+            quantity: 1
+        });
+    }
+
+    updateCart();
+
+    alert(name + " cart में add हो गया।");
+}
+
+
+// -----------------------------
+// CHANGE QUANTITY
+// -----------------------------
+function changeQuantity(index, change) {
+
+    if (!cart[index]) return;
+
+    cart[index].quantity += change;
+
+    if (cart[index].quantity <= 0) {
+        cart.splice(index, 1);
+    }
+
+    updateCart();
+}
+
+
+// -----------------------------
+// REMOVE ITEM
+// -----------------------------
+function removeItem(index) {
+
+    if (!cart[index]) return;
+
+    cart.splice(index, 1);
+
+    updateCart();
+}
+
+
+// -----------------------------
+// GET TOTAL
+// -----------------------------
+function getTotal() {
+
+    return cart.reduce(function(total, item) {
+
+        return total + (item.price * item.quantity);
+
+    }, 0);
+}
+
+
+// -----------------------------
+// UPDATE CART DISPLAY
+// -----------------------------
+function updateCart() {
+
+    const cartItems = document.getElementById("cart-items");
+    const cartTotal = document.getElementById("cart-total");
+
+    if (!cartItems || !cartTotal) return;
+
+    if (cart.length === 0) {
+
+        cartItems.innerHTML = "<p>Cart खाली है।</p>";
+        cartTotal.textContent = "0";
+
+        return;
+    }
+
+    let html = "";
+
+    cart.forEach(function(item, index) {
+
+        const itemTotal = item.price * item.quantity;
+
+        html += `
+            <div class="cart-row">
+
+                <div>
+                    <strong>${item.name}</strong><br>
+                    ₹${item.price} × ${item.quantity}
+                    = ₹${itemTotal}
+                </div>
+
+                <div class="qty">
+
+                    <button onclick="changeQuantity(${index}, -1)">
+                        −
+                    </button>
+
+                    <strong>${item.quantity}</strong>
+
+                    <button onclick="changeQuantity(${index}, 1)">
+                        +
+                    </button>
+
+                    <button
+                        class="remove"
+                        onclick="removeItem(${index})">
+                        ✕
+                    </button>
+
+                </div>
+
+            </div>
+        `;
+    });
+
+    cartItems.innerHTML = html;
+    cartTotal.textContent = getTotal();
+}
+
+
+// -----------------------------
+// WHATSAPP ORDER
+// -----------------------------
+function orderOnWhatsApp() {
+
+    // Check cart
+    if (cart.length === 0) {
+
+        alert("पहले कोई item Cart में add करें।");
+
+        return;
+    }
+
+
+    // Check minimum order
+    const total = getTotal();
+
+    if (total < MINIMUM_ORDER) {
+
+        alert(
+            "Home Delivery के लिए minimum order ₹100 है।\n\n" +
+            "आपका current total: ₹" + total
+        );
+
+        return;
+    }
+
+
+    // Get customer details
+    const name =
+        document.getElementById("customer-name").value.trim();
+
+    const phone =
+        document.getElementById("customer-phone").value.trim();
+
+    const address =
+        document.getElementById("customer-address").value.trim();
+
+
+    // Validate name
+    if (name === "") {
+
+        alert("कृपया अपना नाम डालें।");
+
+        document.getElementById("customer-name").focus();
+
+        return;
+    }
+
+
+    // Validate phone
+    if (phone === "") {
+
+        alert("कृपया अपना मोबाइल नंबर डालें।");
+
+        document.getElementById("customer-phone").focus();
+
+        return;
+    }
+
+
+    // Validate phone length
+    const cleanPhone = phone.replace(/\D/g, "");
+
+    if (cleanPhone.length !== 10) {
+
+        alert("कृपया सही 10 digit मोबाइल नंबर डालें।");
+
+        document.getElementById("customer-phone").focus();
+
+        return;
+    }
+
+
+    // Validate address
+    if (address === "") {
+
+        alert("कृपया अपना Delivery Address डालें।");
+
+        document.getElementById("customer-address").focus();
+
+        return;
+    }
+
+
+    // Build WhatsApp message
+    let message =
+        "🍔 MOHAN FASTFOOD CORNER 🍔\n\n";
+
+    message +=
+        "🛒 NEW ORDER\n";
+    
+    message +=
+        "--------------------------\n";
+
+    message +=
+        "👤 Name: " + name + "\n";
+
+    message +=
+        "📱 Customer Mobile: " + phone + "\n";
+
+    message +=
+        "📍 Delivery Address: " + address + "\n\n";
+
+    message +=
+        "🍽️ ORDER ITEMS\n";
+
+    message +=
+        "--------------------------\n";
+
+
+    cart.forEach(function(item, index) {
+
+        const itemTotal =
+            item.price * item.quantity;
+
+        message +=
+            (index + 1) +
+            ". " +
+            item.name +
+            " × " +
+            item.quantity +
+            " = ₹" +
+            itemTotal +
+            "\n";
+    });
+
+
+    message +=
+        "--------------------------\n";
+
+    message +=
+        "💰 TOTAL: ₹" + total + "\n\n";
+
+    message +=
+        "🚚 Home Delivery\n";
+
+    message +=
+        "✅ Please confirm my order.";
+
+
+    // Create WhatsApp URL
+    const whatsappURL =
+        "https://wa.me/" +
+        WHATSAPP_NUMBER +
+        "?text=" +
+        encodeURIComponent(message);
+
+
+    // Open WhatsApp
+    window.location.href = whatsappURL;
+}
+
+
+// -----------------------------
+// INITIAL LOAD
+// -----------------------------
+document.addEventListener(
+    "DOMContentLoaded",
+    function() {
+
+        updateCart();
+
+    }
+);// ================================
 // MOHAN FASTFOOD - ORDER SCRIPT
 // WhatsApp: +91 97215 80699
 // ================================
