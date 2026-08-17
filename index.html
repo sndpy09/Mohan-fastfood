@@ -1,4 +1,360 @@
-<!doctype html><html lang="hi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>मोहन फास्टफूड कॉर्नर</title><link rel="stylesheet" href="style.css"></head><body>
+"index.html"
+
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>मोहन फास्टफूड कॉर्नर | चकरा कोल्हुआ, वीरपुरा</title>
+
+  <meta name="description"
+        content="मोहन फास्टफूड कॉर्नर - चकरा कोल्हुआ, वीरपुरा। Chowmein, Burger, Egg Roll, Manchurian और Chola। ₹100+ पर Home Delivery।">
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #fff8f0;
+      color: #222;
+    }
+
+    header {
+      background: #ff6b00;
+      color: white;
+      text-align: center;
+      padding: 25px 15px;
+    }
+
+    header h1 {
+      margin: 0 0 8px;
+      font-size: 28px;
+    }
+
+    header p {
+      margin: 5px 0;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: auto;
+      padding: 20px;
+    }
+
+    .delivery {
+      background: #fff0d9;
+      padding: 15px;
+      border-radius: 10px;
+      text-align: center;
+      margin-bottom: 25px;
+      font-weight: bold;
+    }
+
+    h2 {
+      color: #e65100;
+      margin-top: 30px;
+    }
+
+    .menu {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 15px;
+    }
+
+    .item {
+      background: white;
+      border-radius: 12px;
+      padding: 18px;
+      box-shadow: 0 2px 8px rgba(0,0,0,.10);
+    }
+
+    .item h3 {
+      margin: 0 0 8px;
+    }
+
+    .price {
+      font-weight: bold;
+      font-size: 18px;
+      margin-bottom: 12px;
+    }
+
+    button {
+      border: 0;
+      border-radius: 8px;
+      padding: 10px 14px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .add-btn {
+      background: #ff6b00;
+      color: white;
+      width: 100%;
+    }
+
+    .cart {
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      margin-top: 30px;
+      box-shadow: 0 2px 8px rgba(0,0,0,.10);
+    }
+
+    .cart-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 0;
+      border-bottom: 1px solid #eee;
+    }
+
+    .qty button {
+      padding: 5px 9px;
+      margin: 0 2px;
+    }
+
+    .remove {
+      background: #e53935;
+      color: white;
+    }
+
+    .order-form {
+      margin-top: 20px;
+    }
+
+    input,
+    textarea {
+      width: 100%;
+      padding: 12px;
+      margin: 7px 0;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+
+    .whatsapp {
+      width: 100%;
+      background: #25D366;
+      color: white;
+      font-size: 17px;
+      margin-top: 10px;
+    }
+
+    .call {
+      display: block;
+      text-align: center;
+      margin-top: 12px;
+      padding: 12px;
+      background: #333;
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+    }
+
+    .reviews {
+      background: white;
+      padding: 18px;
+      border-radius: 12px;
+      margin-top: 25px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 25px;
+      margin-top: 30px;
+      background: #222;
+      color: white;
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <h1>🍔 मोहन फास्टफूड कॉर्नर</h1>
+  <p>स्वाद • स्वादिष्ट • स्वच्छ</p>
+  <p>📍 चकरा कोल्हुआ, वीरपुरा</p>
+</header>
+
+<div class="container">
+
+  <div class="delivery">
+    🚚 ₹100 या उससे अधिक के ऑर्डर पर Home Delivery
+  </div>
+
+  <h2>😋 आज क्या खाएँ?</h2>
+
+  <div class="menu">
+
+    <div class="item">
+      <h3>🍳 Egg Roll</h3>
+      <div class="price">₹45</div>
+      <button class="add-btn"
+        onclick="addToCart('Egg Roll', 45)">
+        🛒 Add to Cart
+      </button>
+    </div>
+
+    <div class="item">
+      <h3>🥣 Manchurian - Half</h3>
+      <div class="price">₹20</div>
+      <button class="add-btn"
+        onclick="addToCart('Manchurian Half', 20)">
+        🛒 Add to Cart
+      </button>
+    </div>
+
+    <div class="item">
+      <h3>🥣 Manchurian - Full</h3>
+      <div class="price">₹40</div>
+      <button class="add-btn"
+        onclick="addToCart('Manchurian Full', 40)">
+        🛒 Add to Cart
+      </button>
+    </div>
+
+    <div class="item">
+      <h3>🍜 Chowmein - Half</h3>
+      <div class="price">₹15</div>
+      <button class="add-btn"
+        onclick="addToCart('Chowmein Half', 15)">
+        🛒 Add to Cart
+      </button>
+    </div>
+
+    <div class="item">
+      <h3>🍜 Chowmein - Full</h3>
+      <div class="price">₹30</div>
+      <button class="add-btn"
+        onclick="addToCart('Chowmein Full', 30)">
+        🛒 Add to Cart
+      </button>
+    </div>
+
+    <div class="item">
+      <h3>🥘 Chola - Half</h3>
+      <div class="price">₹15</div>
+      <button class="add-btn"
+        onclick="addToCart('Chola Half', 15)">
+        🛒 Add to Cart
+      </button>
+    </div>
+
+    <div class="item">
+      <h3>🥘 Chola - Full</h3>
+      <div class="price">₹30</div>
+      <button class="add-btn"
+        onclick="addToCart('Chola Full', 30)">
+        🛒 Add to Cart
+      </button>
+    </div>
+
+    <div class="item">
+      <h3>🍔 Burger</h3>
+      <div class="price">₹25</div>
+      <button class="add-btn"
+        onclick="addToCart('Burger', 25)">
+        🛒 Add to Cart
+      </button>
+    </div>
+
+  </div>
+
+  <h2>🛒 आपका Cart</h2>
+
+  <div class="cart">
+
+    <div id="cart-items">
+      <p>Cart खाली है।</p>
+    </div>
+
+    <h3>
+      Total: ₹<span id="cart-total">0</span>
+    </h3>
+
+    <div class="order-form">
+
+      <h3>📦 Delivery Details</h3>
+
+      <input
+        type="text"
+        id="customer-name"
+        placeholder="आपका नाम"
+        autocomplete="name">
+
+      <input
+        type="tel"
+        id="customer-phone"
+        placeholder="मोबाइल नंबर"
+        inputmode="numeric"
+        autocomplete="tel">
+
+      <textarea
+        id="customer-address"
+        rows="4"
+        placeholder="पूरा Delivery Address"
+        autocomplete="street-address"></textarea>
+
+      <button
+        class="whatsapp"
+        onclick="orderOnWhatsApp()">
+        💬 WhatsApp पर Order करें
+      </button>
+
+      <a
+        class="call"
+        href="tel:+919721580699">
+        📞 Call करके Order करें
+      </a>
+
+    </div>
+  </div>
+
+  <h2>🎁 Special Offer</h2>
+
+  <div class="delivery">
+    ₹100+ के ऑर्डर पर Home Delivery उपलब्ध।
+  </div>
+
+  <h2>📸 Food Gallery</h2>
+
+  <div class="reviews">
+    🍔 Burger &nbsp;&nbsp;
+    🌯 Egg Roll &nbsp;&nbsp;
+    🍜 Chowmein &nbsp;&nbsp;
+    🥣 Manchurian
+  </div>
+
+  <h2>⭐ Customer Reviews</h2>
+
+  <div class="reviews">
+    ⭐⭐⭐⭐⭐<br>
+    बहुत स्वादिष्ट।<br><br>
+
+    ⭐⭐⭐⭐⭐<br>
+    बढ़िया क्वालिटी।<br><br>
+
+    ⭐⭐⭐⭐⭐<br>
+    फिर से जरूर आएँगे।
+  </div>
+
+</div>
+
+<footer>
+  🍔 मोहन फास्टफूड कॉर्नर<br>
+  📍 चकरा कोल्हुआ, वीरपुरा<br><br>
+  © 2026 Mohan Fastfood
+</footer>
+
+<script src="script.js"></script>
+
+</body>
+</html><!doctype html><html lang="hi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>मोहन फास्टफूड कॉर्नर</title><link rel="stylesheet" href="style.css"></head><body>
 <header><nav><b>🍔 मोहन फास्टफूड कॉर्नर</b><a href="tel:+919721580699">📞 Call</a></nav><div class="hero"><span>स्वाद • स्वादिष्ट • स्वच्छ</span><h1>मोहन फास्टफूड कॉर्नर</h1><p>📍 चकरा कोल्हुआ, वीरपुरा</p><a class="btn" href="#menu">🍔 Menu देखें</a> <a class="btn light" href="#order">💬 Order करें</a><p class="delivery">🚚 ₹100+ के ऑर्डर पर Home Delivery</p></div></header>
 <main><section id="menu"><h2>😋 आज क्या खाएँ?</h2><div id="grid" class="grid"></div></section>
 <section class="offer"><h2>🎁 Special Offer</h2><p>₹100 या उससे अधिक के ऑर्डर पर Home Delivery उपलब्ध।</p></section>
