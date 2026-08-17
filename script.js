@@ -1,5 +1,3 @@
-"script.js"
-
 // ==========================================
 // MOHAN FASTFOOD - WHATSAPP ORDER SYSTEM
 // WhatsApp: +91 97215 80699
